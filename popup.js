@@ -1,16 +1,32 @@
-document.getElementById("autofillButton").addEventListener("click", () => {
-  // Get the active tab and send a message to its content script
-  chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-    chrome.tabs.sendMessage(tabs[0].id, { action: "start_autofill" });
-  });
-});
+document.addEventListener("DOMContentLoaded", () => {
+  const autofillButton = document.getElementById("autofillButton");
+  const messageElement = document.getElementById("message");
 
-// Load and display saved links when the popup is opened
-chrome.storage.local.get({ links: [] }, (data) => {
-  const linkList = document.getElementById("linkList");
-  data.links.forEach((link) => {
-    const li = document.createElement("li");
-    li.innerHTML = `<a href="${link}" target="_blank">${link}</a>`;
-    linkList.appendChild(li);
+  autofillButton.addEventListener("click", () => {
+    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+      const currentTab = tabs[0];
+      const targetUrl = "https://radiooptimism.lg.com";
+
+      if (currentTab.url.startsWith(targetUrl)) {
+        messageElement.textContent = "";
+
+        // Step 1: Inject the content script
+        chrome.scripting.executeScript(
+          {
+            target: { tabId: currentTab.id },
+            files: ["contentScript.js"],
+          },
+          () => {
+            // Step 2: Send the message only after the script is injected
+            chrome.tabs.sendMessage(currentTab.id, {
+              action: "start_autofill",
+            });
+          }
+        );
+      } else {
+        messageElement.textContent =
+          "Sorry, this extension only works on radiooptimism.lg.com.";
+      }
+    });
   });
 });
