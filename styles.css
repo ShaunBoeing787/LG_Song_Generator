@@ -1,0 +1,31 @@
+body {
+  font-family: sans-serif;
+  width: 300px;
+  padding: 10px;
+}
+.container {
+  text-align: center;
+}
+h1 {
+  font-size: 1.2em;
+}
+#autofillButton {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+.link-section {
+  margin-top: 20px;
+  text-align: left;
+}
+#linkList {
+  list-style-type: none;
+  padding: 0;
+}
+#linkList li {
+  margin-bottom: 5px;
+  word-wrap: break-word;
+}
