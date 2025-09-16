@@ -64,19 +64,31 @@
       authorInput.dispatchEvent(new Event("input", { bubbles: true }));
 
       console.log('Autofilled author with "John" and dispatched input event.');
-
-      // Add a delay of 200 milliseconds before clicking the next button
+    }
+    const dedicationInput = document.querySelector('input[name="dedication"]');
+    if (dedicationInput) {
+      dedicationInput.value = "Jane";
+      dedicationInput.dispatchEvent(new Event("input", { bubbles: true }));
+      console.log(
+        'Autofilled dedication with "Jane" and dispatched input event.'
+      );
+    }
+    const messageInput = document.querySelector('textarea[name="message"]');
+    if (messageInput) {
+      messageInput.value = "friends";
+      messageInput.dispatchEvent(new Event("input", { bubbles: true }));
+      console.log(
+        'Autofilled message with "friends" and dispatched input event.'
+      );
       setTimeout(() => {
-        clickNextButton();
+        clickNextButton("step_navigation_next_mobile-message");
       }, 200);
-    } else {
-      console.error("Could not find author input field.");
     }
   }
 
   function clickNextButton() {
     const nextButton = document.querySelector(
-      'button[data-click-name="step_navigation_next_mobile-author"]'
+      'button[data-click-name="step_navigation_next_desktop-combined-user-info"]'
     );
     if (nextButton) {
       nextButton.click();
