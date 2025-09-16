@@ -119,6 +119,20 @@
       'button[data-click-name="step_navigation_next_desktop-vibe"]',
       clickNextVibeButton
     );
+
+    waitForElementAndPerformAction(
+      'button[data-click-name="track_step_share"]',
+      clickPutOnTheRadio
+    );
+    waitForElementAndPerformAction(
+      'button[data-click-name="modal_secondary_action_button"]',
+      clickJustWantALink
+    );
+
+    waitForElementAndPerformAction(
+      'button[data-click-name="track_step_copy_url"]',
+      clickCopyTrackURL
+    );
   }
 
   function clickNextButton() {
@@ -171,6 +185,42 @@
       console.log('Clicked the "Next" button for vibe selection.');
     } else {
       console.error('Could not find the "Next" button for vibe selection.');
+    }
+  }
+
+  function clickPutOnTheRadio() {
+    const radioRadio = document.querySelector(
+      'button[data-click-name="track_step_share"]'
+    );
+    if (radioRadio) {
+      radioRadio.click();
+      console.log('Clicked "Let\'s Put It On The Radio!" button.');
+    } else {
+      console.error('Could not find "Let\'s Put It On The Radio!" button.');
+    }
+  }
+
+  function clickJustWantALink() {
+    const linkButton = document.querySelector(
+      'button[data-click-name="modal_secondary_action_button"]'
+    );
+    if (linkButton) {
+      linkButton.click();
+      console.log('Clicked "No, I just want a link" button.');
+    } else {
+      console.error('Could not find "No, I just want a link" button.');
+    }
+  }
+
+  function clickCopyTrackURL() {
+    const copyButton = document.querySelector(
+      'button[data-click-name="track_step_copy_url"]'
+    );
+    if (copyButton) {
+      copyButton.click();
+      console.log('Clicked "Copy Track URL" button.');
+    } else {
+      console.error('Could not find "Copy Track URL" button.');
     }
   }
 
