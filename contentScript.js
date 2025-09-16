@@ -6,6 +6,21 @@
   }
   window.hasRun = true;
 
+  // A generic function to wait for an element and then perform an action
+  function waitForElementAndPerformAction(selector, actionFunction) {
+    const observer = new MutationObserver((mutationsList, obs) => {
+      const element = document.querySelector(selector);
+      if (element) {
+        console.log(
+          `Element with selector "${selector}" detected. Initiating action.`
+        );
+        actionFunction(element);
+        obs.disconnect();
+      }
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
+  }
+
   function checkCheckbox(elementId) {
     const checkbox = document.getElementById(elementId);
     if (checkbox) {
@@ -81,9 +96,29 @@
         'Autofilled message with "friends" and dispatched input event.'
       );
       setTimeout(() => {
-        clickNextButton("step_navigation_next_mobile-message");
+        clickNextButton("step_navigation_next_desktop-combined-user-info");
       }, 200);
     }
+
+    waitForElementAndPerformAction(
+      'button[data-click-name="step_navigation_randomize_desktop-genre"]',
+      clickRandomizeButton
+    );
+
+    waitForElementAndPerformAction(
+      'button[data-click-name="step_navigation_next_desktop-genre"]',
+      clickNextButtonGenre
+    );
+
+    waitForElementAndPerformAction(
+      'button[data-click-name="step_navigation_randomize_desktop-vibe"]',
+      clickRandomizeVibeButton
+    );
+
+    waitForElementAndPerformAction(
+      'button[data-click-name="step_navigation_next_desktop-vibe"]',
+      clickNextVibeButton
+    );
   }
 
   function clickNextButton() {
@@ -95,6 +130,47 @@
       console.log('Clicked the "Next" button.');
     } else {
       console.error('Could not find the "Next" button.');
+    }
+  }
+
+  function clickRandomizeButton(randomizeButton) {
+    if (randomizeButton) {
+      randomizeButton.click();
+      console.log('Clicked the "Randomize" button.');
+    } else {
+      console.error('Could not find the "Randomize" button.');
+    }
+  }
+  function clickNextButtonGenre(nextButton) {
+    if (nextButton) {
+      nextButton.click();
+      console.log('Clicked the final "Next" button.');
+    } else {
+      console.error('Could not find the "Next" button for genre.');
+    }
+  }
+
+  function clickRandomizeVibeButton() {
+    const randomizeButton = document.querySelector(
+      'button[data-click-name="step_navigation_randomize_desktop-vibe"]'
+    );
+    if (randomizeButton) {
+      randomizeButton.click();
+      console.log('Clicked the "Randomize Vibe" button.');
+    } else {
+      console.error('Could not find the "Randomize Vibe" button.');
+    }
+  }
+
+  function clickNextVibeButton() {
+    const nextButton = document.querySelector(
+      'button[data-click-name="step_navigation_next_desktop-vibe"]'
+    );
+    if (nextButton) {
+      nextButton.click();
+      console.log('Clicked the "Next" button for vibe selection.');
+    } else {
+      console.error('Could not find the "Next" button for vibe selection.');
     }
   }
 
