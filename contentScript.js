@@ -133,6 +133,11 @@
       'button[data-click-name="track_step_copy_url"]',
       clickCopyTrackURL
     );
+
+    waitForElementAndPerformAction(
+      'button[data-click-name="button_make_new_song"]',
+      clickMakeNewSong
+    );
   }
 
   function clickNextButton() {
@@ -221,6 +226,18 @@
       console.log('Clicked "Copy Track URL" button.');
     } else {
       console.error('Could not find "Copy Track URL" button.');
+    }
+  }
+
+  function clickMakeNewSong() {
+    const newSongButton = document.querySelector(
+      'button[data-click-name="button_make_new_song"]'
+    );
+    if (newSongButton) {
+      newSongButton.click();
+      console.log('Clicked "Let\'s Make A New Song!" button.');
+    } else {
+      console.error('Could not find "Let\'s Make A New Song!" button.');
     }
   }
 
